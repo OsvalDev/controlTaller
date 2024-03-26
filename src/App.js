@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client'
 import logo from './logo.svg';
 import './App.css';
 
+const socket = io('http://localhost:3001')
+
 function App() {
   const [clicks, setClicks] = useState(0);
+  const [isConnected, setIsConnected] = useState();
+
+  useEffect( ()=> {
+    socket.on('connect', () => setIsConnected(true))  
+  }, []);
 
   const handleClick = () => {
     // Incrementamos el contador de clics
@@ -19,6 +27,9 @@ function App() {
           Click Me
         </button>
       </header>
+      <div>
+        <h2> {isConnected ? 'Conectado' : 'Desconectado'} </h2>
+      </div>
     </div>
   );
 }
