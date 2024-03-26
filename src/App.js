@@ -4,7 +4,8 @@ import { io } from 'socket.io-client'
 import logo from './logo.svg';
 import './App.css';
 
-const socket = io('http://170.1.1.10:3001')
+const socket = io(process.env.REACT_APP_SOCKET_URL);
+console.log("cfvhgbnj", process.env)
 
 function App() {
   const [clicks, setClicks] = useState(0);
