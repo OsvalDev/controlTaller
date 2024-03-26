@@ -38,5 +38,8 @@
       "last 1 safari version",
       "chrome 67"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
   }
 }
