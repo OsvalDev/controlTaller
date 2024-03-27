@@ -8,21 +8,31 @@ const dbConfig = {
     database: DB_CONFIG.database,    
     options: {
         encrypt: true,
-        trustServerCertificate: false,        
+        trustServerCertificate: true,        
     },
 };
 
-const makeQuery = async ( query ) =>{
+const pool = new sql.ConnectionPool(dbConfig);
+
+const makeQuery = async (query, values) => {
     try {
-        await sql.connect(dbConfig);
-        const result = await sql.query(query);
+        await pool.connect();
+        const request = pool.request();
+        if (values) {
+            for (const key in values) {
+                request.input(key, values[key]);
+            }
+        }
+        const result = await request.query(query);
         return result.recordset;
     } catch (error) {
         console.error('Error al ejecutar la consulta:', error);
         throw error;
-    } finally {
-        sql.close();
     }
 };
+
+process.on('exit', () => {
+    pool.close();
+});
 
 export default {makeQuery};

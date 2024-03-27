@@ -7,9 +7,13 @@ export default class Login {
     }
 
     async validateCredentials() {
-        const query = 'SELECT * FROM USER WHERE numEmpleado = ' + this.numEmpleado + ' AND psw = ' + this.psw;
-        const result = await bd.makeQuery( query );
-        console.log( result );
+        const query = 'SELECT * FROM [USER] WHERE numEmpleado = @numEmpleado AND psw = @psw';
+        const values = {
+            numEmpleado: this.numEmpleado,
+            psw: this.psw
+        };
+        const result = await bd.makeQuery(query, values);
+        return result;
     }
 
 }
