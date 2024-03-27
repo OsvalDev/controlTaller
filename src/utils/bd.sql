@@ -87,3 +87,9 @@ CREATE TABLE EXPENSE (
     FOREIGN KEY (idOrder) REFERENCES [ORDER](folio),
     FOREIGN KEY (idRefaction) REFERENCES REFACTION(id)
 );
+
+INSERT INTO [ROLE](roleName) VALUES
+('supModulo'),
+('supTaller'),
+('supMantenimiento'),
+('admin');
