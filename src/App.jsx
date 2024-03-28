@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import routes from './routes';
 import SideBar from './components/sidebar/SideBar';
-import FragmentRoute from './components/FragmentRoute';
+
 
 function App() {
     return (
@@ -12,13 +12,13 @@ function App() {
                 {routes.map((route, index) => (
                     route.isPrivate ?(                        
                         <Route key = {index} path = { route.path } element = { 
-                            <FragmentRoute>
+                            <div className='flex bg-gray-50'>
                                 <SideBar /> 
                                 { route.element }
-                            </FragmentRoute>
+                            </div>
                         } />
                     ): (
-                        <Route key={index} {...route} />
+                        <Route key={index} path = { route.path } element = { route.element } />
                     )
                 ))}             
             </Routes>
